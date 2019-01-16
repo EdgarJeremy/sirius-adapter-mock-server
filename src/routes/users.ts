@@ -1,6 +1,5 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import printer from 'node-thermal-printer';
 import ModelFactoryInterface from '../models/typings/ModelFactoryInterface';
 import { Routes } from './typings/RouteInterface';
 import a from '../middlewares/wrapper/a';
@@ -15,12 +14,6 @@ const usersRoute: Routes = (app: express.Application, models: ModelFactoryInterf
     router.get('/', a(async (req: express.Request, res: express.Response): Promise<void> => {
         const data: { count: number; rows: UserInstance[] } = await models.User.findAndCountAll();
         const body: OkResponse = { data };
-
-        printer.init({ type: 'epson', interface: '/dev/ttys005' });
-        
-        printer.isPrinterConnected((b: boolean) => {
-            console.log(b);
-        });
 
         res.json(body);
     }));
