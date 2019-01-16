@@ -8,7 +8,7 @@ const a: A = (handler: express.Handler): express.Handler => {
     return (req: express.Request, res: express.Response, next: express.NextFunction): Promise<express.Handler> => {
         return Promise.resolve(handler(req, res, next)).catch((err: Error | AuthError | Sequelize.UniqueConstraintError | Sequelize.ValidationError) => {
             if (err.name === 'SequelizeUniqueConstraintError' || err.name === 'SequelizeValidationError') {
-                const response: ErrorResponse = { errors: extractErrorResponse(err) };
+                const response: ErrorResponse = extractErrorResponse(err);
                 res.status(422);
                 res.json(response);
             } else if (err.name === 'AuthError') {

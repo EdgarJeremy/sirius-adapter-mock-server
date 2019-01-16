@@ -1,6 +1,5 @@
 import express, { Request } from 'express';
 import ModelFactoryInterface from '../../models/typings/ModelFactoryInterface';
-import { UserInstance } from '../../models/User';
 
 export interface Routes {
     (app: express.Application, models: ModelFactoryInterface): express.Router;
